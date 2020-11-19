@@ -2,10 +2,9 @@ import os
 import time
 import numpy
 import argparse
-import matplotlib.pylab as plt
 
 
-def main():
+def PageRankMain(command=None):
     startTime = time.time()
     print('Start Time =', time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(startTime)))
     parser = argparse.ArgumentParser()
@@ -19,9 +18,9 @@ def main():
                              " If this parameter more than 1 or less than 0, that is meaning this is not used.")
     parser.add_argument("--not_dead_end_flag", default=False, action='store_true', required=False,
                         help="The dead end flag decide to use or not use method to treat with dead end situation in the DENSE METHOD.")
-    parser.add_argument("--min_changes", default=1E-4, type=float, required=False,
+    parser.add_argument("--min_changes", default=1E-3, type=float, required=False,
                         help="The min changes between two epoch. Small this value will end the iteration.")
-    parser.add_argument("--max_iteration_times", default=1E+6, type=int, required=False,
+    parser.add_argument("--max_iteration_times", default=1E+3, type=int, required=False,
                         help="The maximum times for page rank iteration.")
     parser.add_argument("--top_node_number", default=100, type=int, required=False,
                         help="The top node number write to the output file.")
@@ -32,15 +31,23 @@ def main():
                         help="The power flag is to only calculate M1, M2, M4, M8 such the matrix."
                              "If this flag is on, it may be more quick to covergence."
                              "This Flag is only effective when the dense flag is TRUE.")
+    ## Sparse Matrix parameters
+    parser.add_argument("--block_flag", default=False, action='store_true', required=False,
+                        help="The block flag decide to use or not use block sparse matrix treatment.")
+    parser.add_argument("--block_length", default=1000, required=False,
+                        help="############################")
 
-    ## Inner Test, Ignore it Plz#####################################################################
-    args = parser.parse_args('--input_path=WikiData.txt'.split())
-    # print(args.not_dead_end_flag)
-    # exit()
+    ##########################################################################################
+    if command is not None:
+        args = parser.parse_args(command.split())
+    else:
+        args = parser.parse_args()
 
     ##########################################################################################
 
     ## Check the parameter
+    args.input_path = args.input_path.replace('"', '')
+    args.output_path = args.output_path.replace('"', '')
     if not os.path.exists(args.input_path): raise RuntimeError('Can not find file: %s' % args.input_path)
     rawData = None
     for encoding in ['UTF-8', 'GBK']:
@@ -70,14 +77,29 @@ def main():
         if sample in deadNodeSet: deadNodeSet.remove(sample)
 
     if args.dense_flag:
-        __DensePageRank(nodeDictionary=nodeDictionary, deadNodeSet=deadNodeSet, args=args)
+        iterationChanges, nodeWeight, index2Node = \
+            __DensePageRank(nodeDictionary=nodeDictionary, deadNodeSet=deadNodeSet, args=args)
     else:
-        __SparsePageRank(nodeDictionary=nodeDictionary, deadNodeSet=deadNodeSet, args=args)
+        iterationChanges, nodeWeight, index2Node = \
+            __SparsePageRank(nodeDictionary=nodeDictionary, deadNodeSet=deadNodeSet, args=args)
+
+    iterationChanges = numpy.array(iterationChanges)
+    with open(os.path.join(args.output_path, 'DistanceRecord.txt'), 'w') as file:
+        for sample in iterationChanges:
+            file.write('%d %.20f\n' % (sample[0], sample[1]))
+
+    nodeWeight = numpy.array(nodeWeight)
+    nodeWeight = numpy.concatenate([nodeWeight[:, numpy.newaxis], numpy.arange(len(nodeWeight))[:, numpy.newaxis]],
+                                   axis=1)
+    nodeWeight = sorted(nodeWeight, key=lambda x: x[0], reverse=True)
+    with open(os.path.join(args.output_path, 'Result.txt'), 'w') as file:
+        for nodeSample in nodeWeight[0:args.top_node_number]:
+            file.write('%d %.20f\n' % (index2Node[nodeSample[1]], nodeSample[0]))
 
     endTime = time.time()
     print('End Time  =', time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(endTime)))
     print('It cost %.2f seconds.' % (endTime - startTime))
-    plt.show()
+    # plt.show()
 
 
 def __DensePageRank(nodeDictionary, deadNodeSet, args):
@@ -127,19 +149,7 @@ def __DensePageRank(nodeDictionary, deadNodeSet, args):
             # raise RuntimeWarning('Can not convergence with assigned min change distance.')
             print('ERROR : Can not convergence with assigned min change distance.')
             break
-
-    iterationChanges = numpy.array(iterationChanges)
-    plt.plot(iterationChanges[:, 0], iterationChanges[:, 1])
-    plt.xlabel('Iteration Times')
-    plt.ylabel('Changes between iterations')
-
-    nodeWeight = numpy.array(nodeWeight)
-    nodeWeight = numpy.concatenate([nodeWeight[:, numpy.newaxis], numpy.arange(len(nodeWeight))[:, numpy.newaxis]],
-                                   axis=1)
-    nodeWeight = sorted(nodeWeight, key=lambda x: x[0], reverse=True)
-    with open(args.output_path, 'w') as file:
-        for nodeSample in nodeWeight[0:args.top_node_number]:
-            file.write('%d %.20f\n' % (index2Node[nodeSample[1]], nodeSample[0]))
+    return iterationChanges, nodeWeight, index2Node
 
 
 def __SparsePageRank(nodeDictionary, deadNodeSet, args):
@@ -171,7 +181,6 @@ def __SparsePageRank(nodeDictionary, deadNodeSet, args):
                         nodeDictionary[linkStart])
         if not args.not_dead_end_flag:
             nodeWeight += (1 - numpy.sum(nodeWeight)) / len(node2Index.keys())
-
         iterationChanges.append([iterationTimes, numpy.sum(numpy.abs(nodeWeight - nodeWeightPast))])
 
         if numpy.sum(numpy.abs(nodeWeight - nodeWeightPast)) < args.min_changes:
@@ -184,20 +193,8 @@ def __SparsePageRank(nodeDictionary, deadNodeSet, args):
             # raise RuntimeWarning('Can not convergence with assigned min change distance.')
             print('ERROR : Can not convergence with assigned min change distance.')
             break
-
-    iterationChanges = numpy.array(iterationChanges)
-    plt.plot(iterationChanges[:, 0], iterationChanges[:, 1])
-    plt.xlabel('Iteration Times')
-    plt.ylabel('Changes between iterations')
-
-    nodeWeight = numpy.array(nodeWeight)
-    nodeWeight = numpy.concatenate([nodeWeight[:, numpy.newaxis], numpy.arange(len(nodeWeight))[:, numpy.newaxis]],
-                                   axis=1)
-    nodeWeight = sorted(nodeWeight, key=lambda x: x[0], reverse=True)
-    with open(args.output_path, 'w') as file:
-        for nodeSample in nodeWeight[0:args.top_node_number]:
-            file.write('%d %.20f\n' % (index2Node[nodeSample[1]], nodeSample[0]))
+    return iterationChanges, nodeWeight, index2Node
 
 
 if __name__ == '__main__':
-    main()
+    PageRankMain()
