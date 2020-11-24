@@ -26,7 +26,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../NLP" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -129,7 +129,8 @@
       <workItem from="1605763378756" duration="733000" />
       <workItem from="1605767760880" duration="624000" />
       <workItem from="1605771103879" duration="63000" />
-      <workItem from="1605771225148" duration="525000" />
+      <workItem from="1605771225148" duration="8209000" />
+      <workItem from="1605965326420" duration="316000" />
     </task>
     <servers />
   </component>
@@ -137,34 +138,38 @@
     <option name="version" value="3" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1875" height="281" key="GridCell.Tab.0.bottom" timestamp="1605771743008">
+    <state x="739" y="274" key="FileChooserDialogImpl" timestamp="1605965641413">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1875" height="281" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1605771743008" />
-    <state width="1875" height="281" key="GridCell.Tab.0.center" timestamp="1605771743008">
+    <state x="739" y="274" key="FileChooserDialogImpl/0.0.1920.1040/1920.0.2560.1040@0.0.1920.1040" timestamp="1605965641413" />
+    <state width="1875" height="384" key="GridCell.Tab.0.bottom" timestamp="1605782301516">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1875" height="281" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1605771743008" />
-    <state width="1875" height="281" key="GridCell.Tab.0.left" timestamp="1605771743008">
+    <state width="1875" height="384" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1605782301516" />
+    <state width="1875" height="384" key="GridCell.Tab.0.center" timestamp="1605782301516">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1875" height="281" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1605771743007" />
-    <state width="1875" height="281" key="GridCell.Tab.0.right" timestamp="1605771743008">
+    <state width="1875" height="384" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1605782301516" />
+    <state width="1875" height="384" key="GridCell.Tab.0.left" timestamp="1605782301516">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1875" height="281" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1605771743008" />
-    <state x="920" y="144" key="SettingsEditor" timestamp="1605702402339">
+    <state width="1875" height="384" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1605782301516" />
+    <state width="1875" height="384" key="GridCell.Tab.0.right" timestamp="1605782301516">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="920" y="144" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1605702402339" />
+    <state width="1875" height="384" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1605782301516" />
+    <state x="920" y="144" key="SettingsEditor" timestamp="1605780852589">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="920" y="144" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1605780852589" />
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1605419412401">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1605419412401" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/WebBigData_PageRanke$Main.coverage" NAME="Main Coverage Results" MODIFIED="1605710870529" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/WebBigData_PageRanke$Main.coverage" NAME="Main Coverage Results" MODIFIED="1605777722865" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/WebBigData_PageRanke$Test.coverage" NAME="Test Coverage Results" MODIFIED="1605621426816" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/WebBigData_PageRanke$GUI.coverage" NAME="GUI Coverage Results" MODIFIED="1605771722407" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/WebBigData_PageRanke$GUI.coverage" NAME="GUI Coverage Results" MODIFIED="1605781375934" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
